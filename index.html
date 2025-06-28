@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AQUANAUTS | Smart Water Efficiency</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-900 text-gray-100">
+
+<!-- Navbar -->
+<header class="bg-gray-800 shadow p-4 flex justify-between items-center">
+  <h1 class="text-2xl font-bold text-blue-400">AQUANAUTS</h1>
+  <nav class="space-x-4">
+    <a href="#home" class="hover:text-blue-400">Home</a>
+    <a href="#dashboard" class="hover:text-blue-400">Dashboard</a>
+    <a href="#solution" class="hover:text-blue-400">Solutions</a>
+    <a href="#feedback" class="hover:text-blue-400">Feedback</a>
+    <a href="#contact" class="hover:text-blue-400">Contact</a>
+  </nav>
+</header>
+
+<!-- Hero Section -->
+<section id="home" class="text-center py-12 bg-gray-800">
+  <h2 class="text-4xl font-bold mb-4 text-blue-300">Smart Water Management for Delhi</h2>
+  <p class="max-w-2xl mx-auto text-lg">AI-powered water analysis and cost-effective solutions to save Delhi’s water future.</p>
+</section>
+
+<!-- Delhi Water Crisis -->
+<section class="py-10 px-4 md:px-16 bg-gray-900">
+  <h3 class="text-3xl font-bold mb-6 text-blue-400">Delhi’s Water Crisis (2004–2023)</h3>
+  <canvas id="waterCrisisChart" class="mb-8"></canvas>
+
+  <h4 class="text-2xl font-semibold mb-2 text-green-300">Key Issues:</h4>
+  <ul class="list-disc ml-6 space-y-2 text-gray-300">
+    <li>30% water loss due to infrastructure leakage</li>
+    <li>260 MGD untreated sewage into Yamuna</li>
+    <li>141 MGD supply-demand gap</li>
+    <li>Groundwater heavy metal contamination</li>
+  </ul>
+</section>
+
+<script>
+  const ctx1 = document.getElementById('waterCrisisChart').getContext('2d');
+  new Chart(ctx1, {
+    type: 'line',
+    data: {
+      labels: ['2004', '2008', '2012', '2016', '2020', '2023'],
+      datasets: [
+        { label: 'Water Demand (MGD)', data: [800, 900, 1000, 1100, 1200, 1300], borderColor: '#3b82f6', fill: false },
+        { label: 'Water Supply (MGD)', data: [600, 700, 750, 800, 850, 900], borderColor: '#10b981', fill: false }
+      ]
+    },
+    options: { responsive: true, scales: { y: { beginAtZero: true } } }
+  });
+</script>
+
+<!-- Dashboard Section -->
+<section id="dashboard" class="py-10 px-4 md:px-16 bg-gray-800">
+  <h3 class="text-3xl font-bold mb-6 text-blue-400">Real-Time Water Dashboard</h3>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="bg-gray-700 p-6 rounded-xl shadow">
+      <h4 class="text-xl font-bold mb-2">Total Water Demand</h4>
+      <p id="demand" class="text-3xl font-semibold text-blue-300">Loading...</p>
+    </div>
+
+    <div class="bg-gray-700 p-6 rounded-xl shadow">
+      <h4 class="text-xl font-bold mb-2">Untreated Sewage</h4>
+      <p id="sewage" class="text-3xl font-semibold text-red-400">Loading...</p>
+    </div>
+
+    <div class="bg-gray-700 p-6 rounded-xl shadow">
+      <h4 class="text-xl font-bold mb-2">Yamuna Pollution Index</h4>
+      <p id="pollution" class="text-3xl font-semibold text-yellow-300">Loading...</p>
+    </div>
+  </div>
+
+  <canvas id="sewageChart" class="mt-8"></canvas>
+</section>
+
+<!-- AI Solutions -->
+<section id="solution" class="py-10 px-4 md:px-16 bg-gray-900">
+  <h3 class="text-3xl font-bold mb-6 text-blue-400">AI-Based Water Treatment Solutions</h3>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div class="bg-gray-700 p-4 rounded shadow">
+      <h4 class="text-xl font-bold mb-2 text-green-300">Low Cost</h4>
+      <ul class="list-disc ml-4 text-gray-300">
+        <li>Biofilters</li>
+        <li>Reedbeds</li>
+        <li>Septic Tanks</li>
+      </ul>
+    </div>
+    <div class="bg-gray-700 p-4 rounded shadow">
+      <h4 class="text-xl font-bold mb-2 text-yellow-300">Moderate Cost</h4>
+      <ul class="list-disc ml-4 text-gray-300">
+        <li>Wetlands</li>
+        <li>Sedimentation</li>
+        <li>Air Floatation</li>
+      </ul>
+    </div>
+    <div class="bg-gray-700 p-4 rounded shadow">
+      <h4 class="text-xl font-bold mb-2 text-red-300">High Cost</h4>
+      <ul class="list-disc ml-4 text-gray-300">
+        <li>RO</li>
+        <li>UV</li>
+        <li>Nanofiltration</li>
+      </ul>
+    </div>
+  </div>
+
+  <canvas id="solutionChart" class="mt-8"></canvas>
+</section>
+
+<script>
+  function generateRandomData() {
+    return {
+      demand: Math.floor(1000 + Math.random() * 200),
+      sewage: Math.floor(200 + Math.random() * 100),
+      pollution: Math.floor(50 + Math.random() * 50)
+    };
+  }
+
+  function updateDashboard() {
+    const data = generateRandomData();
+    document.getElementById('demand').textContent = data.demand + " MLD";
+    document.getElementById('sewage').textContent = data.sewage + " MGD";
+    document.getElementById('pollution').textContent = data.pollution;
+  }
+  updateDashboard();
+
+  const ctx2 = document.getElementById('sewageChart').getContext('2d');
+  new Chart(ctx2, {
+    type: 'bar',
+    data: {
+      labels: ['Treated', 'Untreated'],
+      datasets: [{
+        label: 'Sewage Volume (MGD)',
+        data: [667, 260],
+        backgroundColor: ['#10b981', '#ef4444']
+      }]
+    },
+    options: { responsive: true, scales: { y: { beginAtZero: true } } }
+  });
+
+  const ctx3 = document.getElementById('solutionChart').getContext('2d');
+  new Chart(ctx3, {
+    type: 'doughnut',
+    data: {
+      labels: ['Low Cost', 'Moderate Cost', 'High Cost'],
+      datasets: [{
+        data: [30, 45, 25],
+        backgroundColor: ['#22c55e', '#eab308', '#ef4444']
+      }]
+    },
+    options: { responsive: true }
+  });
+</script>
+
+<!-- Feedback -->
+<section id="feedback" class="py-10 px-4 md:px-16 bg-gray-800">
+  <h3 class="text-3xl font-bold mb-6 text-blue-400">Feedback & Suggestions</h3>
+  <form class="max-w-md mx-auto space-y-4">
+    <input type="text" placeholder="Your Name" class="w-full p-2 border border-gray-600 rounded bg-gray-700 text-gray-100" required>
+    <input type="email" placeholder="Your Email" class="w-full p-2 border border-gray-600 rounded bg-gray-700 text-gray-100" required>
+    <textarea placeholder="Your Feedback" rows="4" class="w-full p-2 border border-gray-600 rounded bg-gray-700 text-gray-100" required></textarea>
+    <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Submit</button>
+  </form>
+</section>
+
+<!-- Donate -->
+<section class="py-10 px-4 md:px-16 bg-gray-900 text-center">
+  <h3 class="text-2xl font-bold mb-4 text-green-400">Support Our Cause 💧</h3>
+  <button onclick="payNow()" class="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded">Donate Now</button>
+</section>
+
+<!-- Contact -->
+<section id="contact" class="py-10 px-4 md:px-16 bg-gray-800">
+  <h3 class="text-3xl font-bold mb-6 text-blue-400">Contact Us</h3>
+  <form class="max-w-md mx-auto space-y-4">
+    <input type="text" placeholder="Your Name" class="w-full p-2 border border-gray-600 rounded bg-gray-700 text-gray-100" required>
+    <input type="email" placeholder="Your Email" class="w-full p-2 border border-gray-600 rounded bg-gray-700 text-gray-100" required>
+    <textarea placeholder="Your Message" rows="4" class="w-full p-2 border border-gray-600 rounded bg-gray-700 text-gray-100" required></textarea>
+    <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Send</button>
+  </form>
+</section>
+
+<!-- Pitch Deck Download Button -->
+<section class="py-10 px-4 md:px-16 bg-gray-900 text-center">
+  <a href="pitch-deck.pdf" download class="bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700">
+    📥 Download Pitch Deck
+  </a>
+</section>
+
+<!-- Footer -->
+<footer class="bg-gray-800 text-center p-4 text-sm text-gray-400">
+  Made with 💧 by Team AQUANAUTS | Smart Delhi Ideathon 2025 | © 2025
+</footer>
+
+<!-- Razorpay Script -->
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+  function payNow() {
+    var options = {
+      "key": "rzp_test_YourTestKeyHere",
+      "amount": "10000",
+      "currency": "INR",
+      "name": "AQUANAUTS",
+      "description": "Support Water Efficiency",
+      "handler": function (response){
+        alert("Payment successful: " + response.razorpay_payment_id);
+      },
+      "theme": { "color": "#22c55e" }
+    };
+    var rzp = new Razorpay(options);
+    rzp.open();
+  }
+</script>
+
+</body>
+</html>
